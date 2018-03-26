@@ -1,0 +1,15 @@
+{
+    "name": "blast/redmine-sdk",
+    "type": "library",
+    "version": "dev-master",
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "php": "^7.1",
+        "symfony/yaml": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Blast\\Redmine\\SDK\\": "src/"
+        }
+    }
+}
