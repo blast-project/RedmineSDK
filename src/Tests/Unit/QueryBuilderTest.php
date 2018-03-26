@@ -15,9 +15,8 @@ namespace Blast\Redmine\SDK\Tests\Unit;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;
 use Blast\Redmine\SDK\Config\BasicAuthConfig;
-use Blast\Redmine\SDK\Repository\ModelRepository;
 
-class RepositoryTest extends TestCase
+class QueryBuilderTest extends TestCase
 {
     private $autConfig;
 
@@ -29,18 +28,10 @@ class RepositoryTest extends TestCase
           $configData['base_uri'], $configData['login'], $configData['password']);
     }
 
-    public function testAuth()
+    public function testQuery()
     {
-        $issueRepo = new ModelRepository($this->authConfig, 'issues');
-        $result = $issueRepo->findAll();
+        //$qb = new QueryBuilder();
 
-        $this->assertEquals(count($result->getData()), 100);
-        $this->assertEquals($result->getResponse()->getStatusCode(), 200);
 
-        $issue = ($result->getData()[0]);
-        $result2 = $issueRepo->find($issue['id']);
-        print_r($result2); exit();
-        $this->assertEquals($result->getData()['id'], $issue['id']);
-
-   }
+    }
 }

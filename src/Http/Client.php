@@ -69,17 +69,21 @@ class Client
         $this->dataKey = $key;
     }
 
-    public function getUri(): string
+    public function buildUri(?string $route = null): string
     {
         $uri = $this->route;
 
+        if(null !== $route){
+          $uri = $uri .'/'.$route;
+        }
         if(null !== $this->format){
           $uri = $uri .'.'.$this->format;
         }
         return $uri;
     }
 
-    public function get(array $query = []): Result {
+    public function get($route, array $query = [], ?string $dataKey = null): Result {
+
       $options = [
         'headers' => [],
         'query' => $query
@@ -87,7 +91,7 @@ class Client
 
       $options['headers'] = $this->authConfig->applyHeaders($options['headers']);
 
-      $response = $this->httpClient->request('GET', $this->getUri(), $options);
-      return ResultFactory::fromResponse($this->format, $this->dataKey, $response);
+      $response = $this->httpClient->request('GET', $this->buildUri($route), $options);
+      return ResultFactory::fromResponse($this->format, $dataKey, $response);
     }
 }

@@ -24,15 +24,16 @@ abstract class AbstractRepository
 
     public function findAll()
     {
-        $query = [
+      $query = [
         'limit' => '100',
       ];
 
-        return $this->client->get($query);
+        return $this->client->get('issue', $query);
     }
 
     public function find($id)
     {
+      return $this->client->get($id, [], );
     }
 
     abstract public function getRoute(): string;
