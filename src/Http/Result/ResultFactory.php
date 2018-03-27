@@ -9,18 +9,18 @@
  */
 
 namespace Blast\Redmine\SDK\Http\Result;
-
+use GuzzleHttp\Psr7\Response;
 class ResultFactory
 {
-    public static function fromResponse($format, $dataKey, $response): Result
+    public static function fromResponse(string $format, string $dataKey, Response $response, bool $isCollection = false): Result
     {
         switch ($format) {
           case 'json':
-              return  JsonResult::fromResponse($response, $dataKey, ['assoc' => true]);
+              return  JsonResult::fromResponse($response, $dataKey, ['collection'=>$isCollection, 'assoc' => true]);
           case 'csv':
-              return  CsvResult::fromResponse($response, $dataKey,['delimiter' => ';', 'encodings' => ['LATIN1', 'UTF8']]);
+              return  CsvResult::fromResponse($response, $dataKey,['collection'=>$isCollection, 'delimiter' => ';', 'encodings' => ['LATIN1', 'UTF8']]);
           default:
-              return  PlainResult::fromResponse($response, $dataKey);
+              return  PlainResult::fromResponse($response, $dataKey, ['collection'=>$isCollection]);
       }
     }
 }

@@ -12,35 +12,34 @@ declare(strict_types=1);
 
 namespace Blast\Redmine\SDK\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Yaml\Yaml;
-use Blast\Redmine\SDK\Config\BasicAuthConfig;
-use Blast\Redmine\SDK\Repository\ModelRepository;
+use Blast\Redmine\SDK\Repository\IssueRepository;
 
-class RepositoryTest extends TestCase
+class RepositoryTest extends RedmineTestCase
 {
-    private $autConfig;
-
-    public function setUp()
+    public function test_findAll()
     {
-        $parameters = Yaml::parseFile(__DIR__ . '/../Resources/parameters.yml');
-        $configData = $parameters['redmine_sdk'];
-        $this->authConfig = new BasicAuthConfig(
-          $configData['base_uri'], $configData['login'], $configData['password']);
+        $issueRepo = new IssueRepository($this->authConfig);
+        $result = $issueRepo->findAll(['limit'=> 10]);
+
+        $this->assertEquals(count($result), 10);
     }
 
-    public function testAuth()
+    public function test_findById()
     {
-        $issueRepo = new ModelRepository($this->authConfig, 'issues');
-        $result = $issueRepo->findAll();
+        $issueRepo = new IssueRepository($this->authConfig);
+        $result = $issueRepo->findAll(['limit' => 1]);
+        $firstIssue = $result[0];
+        $freshFirstIssue = $issueRepo->find($firstIssue['id']);
 
-        $this->assertEquals(count($result->getData()), 100);
+        $this->assertEquals($freshFirstIssue['id'], $firstIssue['id']);
+    }
+
+    public function test_update()
+    {
+        $issueRepo = new IssueRepository($this->authConfig);
+        $issue = $issueRepo->find($this->issueId)->hydrate();
+
+        $result = $issueRepo->update($issue);
         $this->assertEquals($result->getResponse()->getStatusCode(), 200);
-
-        $issue = ($result->getData()[0]);
-        $result2 = $issueRepo->find($issue['id']);
-        print_r($result2); exit();
-        $this->assertEquals($result->getData()['id'], $issue['id']);
-
-   }
+    }
 }

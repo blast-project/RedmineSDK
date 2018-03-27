@@ -43,7 +43,7 @@ class BasicAuthConfig extends AbstractAuthConfig
         return 'Basic ' . base64_encode(sprintf('%s:%s', $this->login, $this->password));
     }
 
-    public function getHeaders(): array
+    public function getAuthHeaders(): array
     {
       return ['Authorization' => $this->getBasicAuth()];
     }

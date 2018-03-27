@@ -12,7 +12,7 @@ namespace Blast\Redmine\SDK\Config;
 
 interface AuthConfigInterface
 {
-    public function getHeaders(): array;
+    public function getAuthHeaders(): array;
 
     public function applyHeaders(array $headers): array;
 }

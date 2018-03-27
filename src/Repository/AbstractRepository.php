@@ -10,36 +10,161 @@
 
 namespace Blast\Redmine\SDK\Repository;
 
-use Blast\Redmine\SDK\Http\Client as HttpClient;
+use GuzzleHttp\Client as GuzzleClient;
 use Blast\Redmine\SDK\Config\AuthConfigInterface;
+use Blast\Redmine\SDK\Http\Result\ResultFactory;
+use Blast\Redmine\SDK\Model\RedmineModel;
 
 abstract class AbstractRepository
 {
+    protected $client;
+    protected $config;
+    protected $bodyKey;
+    protected $defaultCollectionQuery = [];
+    protected $defaultObjectQuery = [];
+
     public function __construct(AuthConfigInterface $config)
     {
-        $this->client = new HttpClient($config);
-        $this->client->setRoute($this->getRoute());
-        $this->client->setDataKey($this->getDataKey());
+        $this->config = $config;
+        $this->client = new GuzzleClient([
+          'base_uri' => $config->getBaseUri(),
+        ]);
+        $this->bodyKey = $this->getBodyKeyByFormat();
     }
 
-    public function findAll()
+    /**
+     * @param array $query
+     *
+     * @return Result
+     */
+    public function findAll(array $query = [])
     {
-      $query = [
-        'limit' => '100',
-      ];
+        $uri = sprintf('%s.%s', $this->getRoute(), $this->getFormat());
 
-        return $this->client->get('issue', $query);
+        return $this->sendGetForCollection($uri, [], $query);
     }
 
-    public function find($id)
+    /**
+     * @param mixed $id
+     * @param array $query
+     *
+     * @return Result
+     */
+    public function find($id, array $query = [])
     {
-      return $this->client->get($id, [], );
+        $uri = sprintf('%s/%s.%s', $this->getRoute(), $id, $this->getFormat());
+
+        return $this->sendGetForOne($uri, [], $query);
     }
 
-    abstract public function getRoute(): string;
-
-    protected function getDataKey(): string
+    /**
+     * @param RedmineModel $model [description]
+     *
+     * @return [type] [description]
+     */
+    public function create(RedmineModel $model)
     {
-        return preg_replace('!^(.*/)!', '', $this->getRoute());
+        $uri = sprintf('%s.%s', $this->getRoute(), $this->getFormat());
+
+        return $this->sendPost($uri, [], $model->toDTO());
+    }
+
+    /**
+     * @param RedmineModel $model [description]
+     *
+     * @return [type] [description]
+     */
+    public function update(RedmineModel $model)
+    {
+        $uri = sprintf('%s/%s.%s', $this->getRoute(), $model->get('id'), $this->getFormat());
+        return $this->sendPut($uri, [], $model->toDTO());
+    }
+
+    /**
+     * @param string $uri
+     * @param array  $headers
+     * @param array  $query
+     *
+     * @return Result
+     */
+    protected function sendGetForCollection(string $uri, array $headers, array $query)
+    {
+        $headers = array_merge($this->config->getAuthHeaders(), $headers);
+        $query = array_merge($this->defaultCollectionQuery, $query);
+
+        $response = $this->client->request('GET', $uri, [
+        'headers' => $headers,
+        'query'   => $query,
+      ]);
+
+        $result = ResultFactory::fromResponse($this->getFormat(), $this->getCollectionDataKey(), $response, true);
+        $result->setModelClass($this->getModelClass());
+
+        return $result;
+    }
+
+    /**
+     * @param string $uri
+     * @param array  $headers
+     * @param array  $query
+     *
+     * @return Result
+     */
+    protected function sendGetForOne(string $uri, array $headers, array $query)
+    {
+        $headers = array_merge($this->config->getAuthHeaders(), $headers);
+        $query = array_merge($this->defaultObjectQuery, $query);
+
+        $response = $this->client->request('GET', $uri, [
+        'headers' => $headers,
+        'query'   => $query,
+      ]);
+
+        $result = ResultFactory::fromResponse($this->getFormat(), $this->getObjectDataKey(), $response);
+        $result->setModelClass($this->getModelClass());
+
+        return $result;
+    }
+
+    protected function sendPost(string $uri, array $headers, array $data)
+    {
+        $headers = array_merge($this->config->getAuthHeaders(), $headers);
+        $options = [
+          'headers'        => $headers,
+          $this->bodyKey   => [$this->getObjectDataKey() => $data],
+        ];
+        $response = $this->client->request('POST', $uri, $options);
+
+        $result = ResultFactory::fromResponse($this->getFormat(), $this->getObjectDataKey(), $response);
+
+        return $result;
+    }
+
+    protected function sendPut(string $uri, array $headers, array $data)
+    {
+        $headers = array_merge($this->config->getAuthHeaders(), $headers);
+        $options = [
+          'headers'        => $headers,
+          $this->bodyKey   => [$this->getObjectDataKey() => $data],
+        ];
+        $response = $this->client->request('PUT', $uri, $options);
+        $result = ResultFactory::fromResponse($this->getFormat(), $this->getObjectDataKey(), $response);
+
+        return $result;
+    }
+
+    abstract protected function getFormat(): string;
+
+    abstract protected function getRoute(): string;
+
+    abstract protected function getModelClass(): string;
+
+    abstract protected function getObjectDataKey(): string;
+
+    abstract protected function getCollectionDataKey(): string;
+
+    protected function getBodyKeyByFormat()
+    {
+        return $this->getFormat() == 'json' ? 'json' : 'body';
     }
 }

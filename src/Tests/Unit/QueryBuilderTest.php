@@ -12,26 +12,43 @@ declare(strict_types=1);
 
 namespace Blast\Redmine\SDK\Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
-use Symfony\Component\Yaml\Yaml;
-use Blast\Redmine\SDK\Config\BasicAuthConfig;
+use Blast\Redmine\SDK\Query\QueryBuilder;
+use Blast\Redmine\SDK\Repository\IssueRepository;
+use Blast\Redmine\SDK\Model\JournalEntry;
 
-class QueryBuilderTest extends TestCase
+class QueryBuilderTest extends RedmineTestCase
 {
-    private $autConfig;
-
-    public function setUp()
+    public function testQueryInclude()
     {
-        $parameters = Yaml::parseFile(__DIR__ . '/../Resources/parameters.yml');
-        $configData = $parameters['redmine_sdk'];
-        $this->authConfig = new BasicAuthConfig(
-          $configData['base_uri'], $configData['login'], $configData['password']);
+        $qb = new QueryBuilder();
+        $qb->include('journals');
+
+        $issueRepo = new IssueRepository($this->authConfig);
+        $issue = $issueRepo->find($this->issueId, $qb->build())->hydrate();
+        $this->assertInstanceOf(JournalEntry::class, $issue->get('journals')[0]);
     }
 
-    public function testQuery()
+    public function test_queryWhere()
     {
-        //$qb = new QueryBuilder();
+        $limit = 4;
+        $qb = new QueryBuilder();
+        $qb->whereEq('project_id', 115);
+        $qb->limit($limit);
 
+        $issueRepo = new IssueRepository($this->authConfig);
+        $issues = $issueRepo->findAll($qb->build())->hydrate();
+        $this->assertEquals(count($issues), $limit);
+    }
 
+    public function test_querySort()
+    {
+        $limit = 4;
+        $qb = new QueryBuilder();
+        $qb->sortBy([['updated_on', 'desc']]);
+        $qb->limit($limit);
+
+        $issueRepo = new IssueRepository($this->authConfig);
+        $issues = $issueRepo->findAll($qb->build())->hydrate();
+        $this->assertEquals(count($issues), $limit);
     }
 }

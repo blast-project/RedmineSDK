@@ -31,7 +31,7 @@ class BasicAuthConfig  extends AbstractAuthConfig
         return $this->token;
     }
 
-    public function getHeaders(): array
+    public function getAuthHeaders(): array
     {
         return ['X-Redmine-API-Key' => $this->getToken()];
     }
