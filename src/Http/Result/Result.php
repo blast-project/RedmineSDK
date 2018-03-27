@@ -57,10 +57,7 @@ abstract class Result implements Iterator, ArrayAccess, Countable
             return $this;
         }
         if ($this->treatAsCollection) {
-            $data = [];
-            foreach ($this as $item) {
-                $data[] = $this->getModelClass()::fromResult($this);
-            }
+            $data = $this->getModelClass()::createList($this->getData());
         } else {
             $data = $this->getModelClass()::fromResult($this);
         }

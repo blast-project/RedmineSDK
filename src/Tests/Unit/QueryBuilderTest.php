@@ -18,7 +18,18 @@ use Blast\Redmine\SDK\Model\JournalEntry;
 
 class QueryBuilderTest extends RedmineTestCase
 {
-    public function testQueryInclude()
+    public function test_query_limit()
+    {
+        $limit = 4;
+        $qb = new QueryBuilder();
+        $qb->limit($limit);
+
+        $issueRepo = new IssueRepository($this->authConfig);
+        $issues = $issueRepo->findAll($qb->build())->hydrate();
+        $this->assertEquals(count($issues), $limit);
+    }
+
+    public function test_query_include()
     {
         $qb = new QueryBuilder();
         $qb->include('journals');
@@ -28,19 +39,19 @@ class QueryBuilderTest extends RedmineTestCase
         $this->assertInstanceOf(JournalEntry::class, $issue->get('journals')[0]);
     }
 
-    public function test_queryWhere()
+    public function test_query_where()
     {
         $limit = 4;
         $qb = new QueryBuilder();
-        $qb->whereEq('project_id', 115);
+        $qb->whereEq('project_id', $this->projectId);
         $qb->limit($limit);
 
         $issueRepo = new IssueRepository($this->authConfig);
         $issues = $issueRepo->findAll($qb->build())->hydrate();
-        $this->assertEquals(count($issues), $limit);
+        $this->assertEquals($issues[0]->get('project')->get('id'), $this->projectId);
     }
 
-    public function test_querySort()
+    public function test_query_sort()
     {
         $limit = 4;
         $qb = new QueryBuilder();
