@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-namespace Blast\Redmine\SDK\Repository;
+namespace Blast\RedmineSDK\Repository;
 
 use GuzzleHttp\Client as GuzzleClient;
-use Blast\Redmine\SDK\Config\AuthConfigInterface;
-use Blast\Redmine\SDK\Http\Result\ResultFactory;
-use Blast\Redmine\SDK\Model\RedmineModel;
+use Blast\RedmineSDK\Config\AuthConfigInterface;
+use Blast\RedmineSDK\Http\Result\ResultFactory;
+use Blast\RedmineSDK\Model\RedmineModel;
 
 abstract class AbstractRepository
 {

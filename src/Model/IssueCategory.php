@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Blast\Redmine\SDK\Model;
+namespace Blast\RedmineSDK\Model;
 
 class IssueCategory extends RedmineModel
 {

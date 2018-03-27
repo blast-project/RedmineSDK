@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Blast\Redmine\SDK\Http\Result;
+namespace Blast\RedmineSDK\Http\Result;
 use GuzzleHttp\Psr7\Response;
 class ResultFactory
 {

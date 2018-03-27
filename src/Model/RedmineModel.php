@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Blast\Redmine\SDK\Model;
+namespace Blast\RedmineSDK\Model;
 
-use Blast\Redmine\SDK\Http\Result\Result;
-use Blast\Redmine\SDK\Util\StringConverter;
+use Blast\RedmineSDK\Http\Result\Result;
+use Blast\RedmineSDK\Util\StringConverter;
 
 class RedmineModel
 {

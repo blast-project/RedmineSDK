@@ -1,5 +1,5 @@
 {
-    "name": "blast/redmine-sdk",
+    "name": "blast-project/redmine-sdk",
     "type": "library",
     "version": "dev-master",
     "require": {
@@ -9,7 +9,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Blast\\Redmine\\SDK\\": "src/"
+            "Blast\\RedmineSDK\\": "src/"
         }
     }
 }

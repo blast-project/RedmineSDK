@@ -10,12 +10,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Blast\Redmine\SDK\Tests\Unit;
+namespace Blast\RedmineSDK\Tests\Unit;
 
-use Blast\Redmine\SDK\Repository\IssueRepository;
-use Blast\Redmine\SDK\Model\Issue;
-use Blast\Redmine\SDK\Model\Project;
-use Blast\Redmine\SDK\Model\JournalEntry;
+use Blast\RedmineSDK\Repository\IssueRepository;
+use Blast\RedmineSDK\Model\Issue;
+use Blast\RedmineSDK\Model\Project;
+use Blast\RedmineSDK\Model\JournalEntry;
 
 class ResultTest extends RedmineTestCase
 {

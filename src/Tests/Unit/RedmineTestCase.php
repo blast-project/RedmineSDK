@@ -10,11 +10,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Blast\Redmine\SDK\Tests\Unit;
+namespace Blast\RedmineSDK\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Yaml\Yaml;
-use Blast\Redmine\SDK\Config\BasicAuthConfig;
+use Blast\RedmineSDK\Config\BasicAuthConfig;
 
 abstract class RedmineTestCase extends TestCase
 {

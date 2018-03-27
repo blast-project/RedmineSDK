@@ -1,6 +1,6 @@
 <?php
 
-namespace Blast\Redmine\SDK\Model;
+namespace Blast\RedmineSDK\Model;
 
 class TimeEntry extends RedmineModel
 {

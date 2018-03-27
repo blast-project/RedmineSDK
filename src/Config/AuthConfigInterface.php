@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Blast\Redmine\SDK\Config;
+namespace Blast\RedmineSDK\Config;
 
 interface AuthConfigInterface
 {

@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Blast\Redmine\SDK\Query;
+namespace Blast\RedmineSDK\Query;
 
 class QueryBuilder
 {

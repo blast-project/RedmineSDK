@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Blast\Redmine\SDK\Repository;
+namespace Blast\RedmineSDK\Repository;
 
-use Blast\Redmine\SDK\Model\Issue;
-use Blast\Redmine\SDK\Query\QueryBuilder;
+use Blast\RedmineSDK\Model\Issue;
+use Blast\RedmineSDK\Query\QueryBuilder;
 
 class IssueRepository extends AbstractRepository
 {

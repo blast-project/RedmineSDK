@@ -10,11 +10,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace Blast\Redmine\SDK\Tests\Unit;
+namespace Blast\RedmineSDK\Tests\Unit;
 
-use Blast\Redmine\SDK\Query\QueryBuilder;
-use Blast\Redmine\SDK\Repository\IssueRepository;
-use Blast\Redmine\SDK\Model\JournalEntry;
+use Blast\RedmineSDK\Query\QueryBuilder;
+use Blast\RedmineSDK\Repository\IssueRepository;
+use Blast\RedmineSDK\Model\JournalEntry;
 
 class QueryBuilderTest extends RedmineTestCase
 {
