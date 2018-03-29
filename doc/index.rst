@@ -107,9 +107,9 @@ Le QueryBuilder
 
   $issueRepo = new IssueRepository($cxn);
   //find one issue by its id
-  $issues = $issueRepo->findAll($qb)->hydrate();
+  $issues = $issueRepo->findAll($qb->build())->hydrate();
   //...
 
 Le ``QueryBuilder`` permet de construire la partie ``query`` de la requête http.
-Le ``QueryBuilder`` peut être passer en argument aux méthodes ``Repository::findAll()`` et ``Repository::find()``
+Le ``QueryBuilder`` peut être utiliser pour construire les arguments passés aux méthodes ``Repository::findAll()`` et ``Repository::find()``
 pour filter, trier et paramétrer le résultat de la requête.
