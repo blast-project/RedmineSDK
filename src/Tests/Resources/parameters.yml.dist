@@ -1,6 +1,0 @@
-redmine_sdk:
-  base_url:  ~
-  login: ~
-  password: ~
-  test_issue_id: ~
-  test_project_id: ~
