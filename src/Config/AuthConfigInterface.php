@@ -10,9 +10,13 @@
 
 namespace Blast\RedmineSDK\Config;
 
+use GuzzleHttp\ClientInterface;
+
 interface AuthConfigInterface
 {
-    public function getAuthHeaders(): array;
+    public function getBaseUri(): string;
 
-    public function applyHeaders(array $headers): array;
+    public function createHttpClient(): ClientInterface;
+
+    public function getAuthHeaders(): array;
 }

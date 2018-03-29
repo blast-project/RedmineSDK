@@ -10,7 +10,7 @@
 
 namespace Blast\RedmineSDK\Config;
 
-class BasicAuthConfig  extends AbstractAuthConfig
+class TokenAuthConfig  extends AbstractAuthConfig
 {
     private $baseUri;
     private $token;

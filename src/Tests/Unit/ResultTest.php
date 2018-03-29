@@ -21,6 +21,9 @@ class ResultTest extends RedmineTestCase
 {
     public function test_hydrate()
     {
+        $this->appendJsonResponse(200, 'find-all-limit-1.json');
+        $this->appendJsonResponse(200, 'find-issue-6226-with-journals.json');
+
         $issueRepo = new IssueRepository($this->authConfig);
         $result = $issueRepo->findAll(['limit' => 1]);
         $firstIssue = $result[0];

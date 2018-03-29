@@ -13,7 +13,7 @@ namespace Blast\RedmineSDK\Repository;
 use Blast\RedmineSDK\Model\Issue;
 use Blast\RedmineSDK\Query\QueryBuilder;
 
-class IssueRepository extends AbstractRepository
+class IssueRepository extends Repository
 {
 
   public function findIssuesByPojectId(int $projectId){
@@ -28,12 +28,12 @@ class IssueRepository extends AbstractRepository
       return $this->sendGetForCollection($uri, [], $query);
     }
 
-    protected function getFormat(): string
+    public function getFormat(): string
     {
         return 'json';
     }
 
-    protected function getRoute(): string
+    public function getRoute(): string
     {
         return 'issues';
     }

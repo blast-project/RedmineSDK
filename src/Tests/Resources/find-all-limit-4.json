@@ -1,0 +1,174 @@
+{
+  "issues": [{
+    "id": 6226,
+    "project": {
+      "id": 11,
+      "name": "Test Project"
+    },
+    "tracker": {
+      "id": 12,
+      "name": "A Tracker"
+    },
+    "status": {
+      "id": 9,
+      "name": "Résolue"
+    },
+    "priority": {
+      "id": 2,
+      "name": "Normal (mineur)"
+    },
+    "author": {
+      "id": 30,
+      "name": "John Doe"
+    },
+    "subject": "A subject",
+    "description": "description",
+    "done_ratio": 0,
+    "created_on": "2018-03-29T10:33:33Z",
+    "updated_on": "2018-03-29T10:33:33Z",
+    "journals": [{
+      "id": 29889,
+      "user": {
+        "id": 30,
+        "name": "John Doe"
+      },
+      "notes": "",
+      "created_on": "2018-02-21T08:32:11Z",
+      "details": [{
+        "property": "attr",
+        "name": "tracker_id",
+        "old_value": "6",
+        "new_value": "5"
+      }]
+    }]
+  },{
+    "id": 6227,
+    "project": {
+      "id": 11,
+      "name": "Test Project"
+    },
+    "tracker": {
+      "id": 12,
+      "name": "A Tracker"
+    },
+    "status": {
+      "id": 9,
+      "name": "Résolue"
+    },
+    "priority": {
+      "id": 2,
+      "name": "Normal (mineur)"
+    },
+    "author": {
+      "id": 30,
+      "name": "John Doe"
+    },
+    "subject": "A subject",
+    "description": "description",
+    "done_ratio": 0,
+    "created_on": "2018-03-29T10:33:33Z",
+    "updated_on": "2018-03-29T10:33:33Z",
+    "journals": [{
+      "id": 29889,
+      "user": {
+        "id": 30,
+        "name": "John Doe"
+      },
+      "notes": "",
+      "created_on": "2018-02-21T08:32:11Z",
+      "details": [{
+        "property": "attr",
+        "name": "tracker_id",
+        "old_value": "6",
+        "new_value": "5"
+      }]
+    }]
+  },{
+    "id": 6228,
+    "project": {
+      "id": 11,
+      "name": "Test Project"
+    },
+    "tracker": {
+      "id": 12,
+      "name": "A Tracker"
+    },
+    "status": {
+      "id": 9,
+      "name": "Résolue"
+    },
+    "priority": {
+      "id": 2,
+      "name": "Normal (mineur)"
+    },
+    "author": {
+      "id": 30,
+      "name": "John Doe"
+    },
+    "subject": "A subject",
+    "description": "description",
+    "done_ratio": 0,
+    "created_on": "2018-03-29T10:33:33Z",
+    "updated_on": "2018-03-29T10:33:33Z",
+    "journals": [{
+      "id": 29889,
+      "user": {
+        "id": 30,
+        "name": "John Doe"
+      },
+      "notes": "",
+      "created_on": "2018-02-21T08:32:11Z",
+      "details": [{
+        "property": "attr",
+        "name": "tracker_id",
+        "old_value": "6",
+        "new_value": "5"
+      }]
+    }]
+  },{
+    "id": 6229,
+    "project": {
+      "id": 11,
+      "name": "Test Project"
+    },
+    "tracker": {
+      "id": 12,
+      "name": "A Tracker"
+    },
+    "status": {
+      "id": 9,
+      "name": "Résolue"
+    },
+    "priority": {
+      "id": 2,
+      "name": "Normal (mineur)"
+    },
+    "author": {
+      "id": 30,
+      "name": "John Doe"
+    },
+    "subject": "A subject",
+    "description": "description",
+    "done_ratio": 0,
+    "created_on": "2018-03-29T10:33:33Z",
+    "updated_on": "2018-03-29T10:33:33Z",
+    "journals": [{
+      "id": 29889,
+      "user": {
+        "id": 30,
+        "name": "John Doe"
+      },
+      "notes": "",
+      "created_on": "2018-02-21T08:32:11Z",
+      "details": [{
+        "property": "attr",
+        "name": "tracker_id",
+        "old_value": "6",
+        "new_value": "5"
+      }]
+    }]
+  }],
+  "total_count": 500,
+  "offset": 0,
+  "limit": 4
+}

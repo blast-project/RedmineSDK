@@ -13,22 +13,39 @@ declare(strict_types=1);
 namespace Blast\RedmineSDK\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Yaml\Yaml;
-use Blast\RedmineSDK\Config\BasicAuthConfig;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
 
 abstract class RedmineTestCase extends TestCase
 {
     protected $autConfig;
+    protected $mock;
     protected $issueId;
-    protected $projectId;
 
     public function setUp()
     {
-        $parameters = Yaml::parseFile(__DIR__ . '/../Resources/parameters.yml');
-        $configData = $parameters['redmine_sdk'];
-        $this->authConfig = new BasicAuthConfig(
-          $configData['base_uri'], $configData['login'], $configData['password']);
-        $this->issueId = $configData['test_issue_id'];
-        $this->projectId = $configData['test_project_id'];
+        $this->mock = new MockHandler();
+        $this->authConfig = new TestAuthConfig($this->mock);
+        $this->issueId = 6226;
+        $this->projectId = 11;
+    }
+
+    public function getJsonFixture($filename)
+    {
+        return \file_get_contents(__DIR__ . '/../Resources/' . $filename);
+    }
+
+    public function appendJsonResponse(int $code, ?string $filename = null)
+    {
+        $this->mock->append($this->createJsonResponse($code, $filename));
+    }
+
+    public function createJsonResponse(int $code, ?string $filename = null)
+    {
+        return new Response($code,
+      [
+        'Content-Type' => 'application/json; charset=utf-8',
+      ],
+       ($filename == null ? null : $this->getJsonFixture($filename)));
     }
 }

@@ -10,10 +10,12 @@
 
 namespace Blast\RedmineSDK\Config;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
 abstract class AbstractAuthConfig implements AuthConfigInterface
 {
-    public function applyHeaders(array $headers): array
+    public function createHttpClient(): ClientInterface
     {
-        return array_merge($headers, $this->getHeaders());
+        return new Client(['base_uri' => $this->getBaseUri()]);
     }
 }

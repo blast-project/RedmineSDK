@@ -10,13 +10,16 @@
 
 namespace Blast\RedmineSDK\Repository;
 
-use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\ClientInterface;
 use Blast\RedmineSDK\Config\AuthConfigInterface;
 use Blast\RedmineSDK\Http\Result\ResultFactory;
 use Blast\RedmineSDK\Model\RedmineModel;
 
-abstract class AbstractRepository
+abstract class Repository
 {
+  /**
+   * @var ClientInterface
+   */
     protected $client;
     protected $config;
     protected $bodyKey;
@@ -26,9 +29,7 @@ abstract class AbstractRepository
     public function __construct(AuthConfigInterface $config)
     {
         $this->config = $config;
-        $this->client = new GuzzleClient([
-          'base_uri' => $config->getBaseUri(),
-        ]);
+        $this->client = $config->createHttpClient();
         $this->bodyKey = $this->getBodyKeyByFormat();
     }
 
@@ -153,9 +154,9 @@ abstract class AbstractRepository
         return $result;
     }
 
-    abstract protected function getFormat(): string;
+    abstract public function getFormat(): string;
 
-    abstract protected function getRoute(): string;
+    abstract public function getRoute(): string;
 
     abstract protected function getModelClass(): string;
 
