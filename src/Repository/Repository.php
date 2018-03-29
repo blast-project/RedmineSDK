@@ -21,15 +21,15 @@ abstract class Repository
    * @var ClientInterface
    */
     protected $client;
-    protected $config;
+    protected $connection;
     protected $bodyKey;
     protected $defaultCollectionQuery = [];
     protected $defaultObjectQuery = [];
 
-    public function __construct(ConnectionInterface $config)
+    public function __construct(ConnectionInterface $ctn)
     {
-        $this->config = $config;
-        $this->client = $config->createHttpClient();
+        $this->connection = $ctn;
+        $this->client = $ctn->createHttpClient();
         $this->bodyKey = $this->getBodyKeyByFormat();
     }
 
@@ -90,7 +90,7 @@ abstract class Repository
      */
     protected function sendGetForCollection(string $uri, array $headers, array $query)
     {
-        $headers = array_merge($this->config->getAuthHeaders(), $headers);
+        $headers = array_merge($this->connection->getAuthHeaders(), $headers);
         $query = array_merge($this->defaultCollectionQuery, $query);
 
         $response = $this->client->request('GET', $uri, [
@@ -113,7 +113,7 @@ abstract class Repository
      */
     protected function sendGetForOne(string $uri, array $headers, array $query)
     {
-        $headers = array_merge($this->config->getAuthHeaders(), $headers);
+        $headers = array_merge($this->connection->getAuthHeaders(), $headers);
         $query = array_merge($this->defaultObjectQuery, $query);
 
         $response = $this->client->request('GET', $uri, [
@@ -129,7 +129,7 @@ abstract class Repository
 
     protected function sendPost(string $uri, array $headers, array $data)
     {
-        $headers = array_merge($this->config->getAuthHeaders(), $headers);
+        $headers = array_merge($this->connection->getAuthHeaders(), $headers);
         $options = [
           'headers'        => $headers,
           $this->bodyKey   => [$this->getObjectDataKey() => $data],
@@ -143,7 +143,7 @@ abstract class Repository
 
     protected function sendPut(string $uri, array $headers, array $data)
     {
-        $headers = array_merge($this->config->getAuthHeaders(), $headers);
+        $headers = array_merge($this->connection->getAuthHeaders(), $headers);
         $options = [
           'headers'        => $headers,
           $this->bodyKey   => [$this->getObjectDataKey() => $data],
