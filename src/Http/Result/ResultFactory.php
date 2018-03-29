@@ -20,7 +20,7 @@ class ResultFactory
           case 'csv':
               return  CsvResult::fromResponse($response, $dataKey,['collection'=>$isCollection, 'delimiter' => ';', 'encodings' => ['LATIN1', 'UTF8']]);
           default:
-              return  PlainResult::fromResponse($response, $dataKey, ['collection'=>$isCollection]);
+              return  RawResult::fromResponse($response, $dataKey, ['collection'=>$isCollection]);
       }
     }
 }
