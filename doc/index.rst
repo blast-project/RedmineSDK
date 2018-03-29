@@ -15,15 +15,15 @@ Créer une Connexion
 
   use Blast\RedmineSDK\Connection\BasicConnection;
 
-  $cxn =  new BasicConnection(
+  $ctn =  new BasicConnection(
     // Base URI of your Redmine API
     'https://redmine.example.org'
     //Your login and password
     'my_login', 'my password'
   );
 
-La configuration se compose des informations nécessaires pour se connecter à l'API Redmine.
-Elle est utilisée par l'ensemble des objets qui accède à l'API.
+L'objet ``Connection`` se compose des informations nécessaires pour se connecter à l'API Redmine.
+Il est utilisé par l'ensemble des objets qui accèdent à l'API.
 
 ---------------------
 Rechercher des Issues
@@ -33,7 +33,7 @@ Rechercher des Issues
 
   use Blast\RedmineSDK\Repository\IssueRepository;
 
-  $issueRepo = new IssueRepository($cxn);
+  $issueRepo = new IssueRepository($ctn);
   //find the first 10 issues
   $result = $issueRepo->findAll(['limit'=> 10]);
 
@@ -51,8 +51,8 @@ L'objet Result
     //...
   }
 
-Un objet ``Result`` est retourné par les méthodes des repositories.
-Cet objet contient les données formatées en tableau, l'objet ``Psr7\Response``
+Un objet ``Result`` est retourné par les méthodes des repositories (findAll(), find(),...).
+Cet objet contient les données formatées sous la forme d'un tableau, l'objet ``Psr7\Response``
 et implémente les interfaces ``Iterator`` et ``ArrayAccess``.
 Cela permet d'accéder aux informations de l'objet ``Response`` mais aussi d'itérer directement sur les données Redmine retournées.
 
