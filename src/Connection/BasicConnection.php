@@ -10,7 +10,7 @@
 
 namespace Blast\RedmineSDK\Connection;
 
-class BasicAuthConnection extends AbstractAuthConnection
+class BasicConnection extends AbstractConnection
 {
     private $baseUri;
     private $login;
