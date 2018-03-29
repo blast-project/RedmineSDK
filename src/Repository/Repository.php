@@ -11,7 +11,7 @@
 namespace Blast\RedmineSDK\Repository;
 
 use GuzzleHttp\ClientInterface;
-use Blast\RedmineSDK\Config\AuthConfigInterface;
+use Blast\RedmineSDK\Connection\ConnectionInterface;
 use Blast\RedmineSDK\Http\Result\ResultFactory;
 use Blast\RedmineSDK\Model\RedmineModel;
 
@@ -26,7 +26,7 @@ abstract class Repository
     protected $defaultCollectionQuery = [];
     protected $defaultObjectQuery = [];
 
-    public function __construct(AuthConfigInterface $config)
+    public function __construct(ConnectionInterface $config)
     {
         $this->config = $config;
         $this->client = $config->createHttpClient();

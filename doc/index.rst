@@ -8,14 +8,14 @@ Quick Start
 Cette page fournis une rapide introduction au SDK, illustrée par des examples.
 
 -----------------------
-Créer une Configuration
+Créer une Connexion
 -----------------------
 
 .. code-block:: php
 
-  use Blast\RedmineSDK\Config\BasicAuthConfig;
+  use Blast\RedmineSDK\Connection\BasicConnection;
 
-  $config =  new BasicAuthConfig(
+  $cxn =  new BasicConnection(
     // Base URI of your Redmine API
     'https://redmine.example.org'
     //Your login and password
@@ -33,7 +33,7 @@ Rechercher des Issues
 
   use Blast\RedmineSDK\Repository\IssueRepository;
 
-  $issueRepo = new IssueRepository($config);
+  $issueRepo = new IssueRepository($cxn);
   //find the first 10 issues
   $result = $issueRepo->findAll(['limit'=> 10]);
 
@@ -80,7 +80,7 @@ Mettre à jour une Issue
 
   use Blast\RedmineSDK\Repository\IssueRepository;
 
-  $issueRepo = new IssueRepository($config);
+  $issueRepo = new IssueRepository($cxn);
   //find one issue by its id
   $issue = $issueRepo->find($issueId)->hydrate();
   $issue->set('subject', 'My new subject');
@@ -89,3 +89,27 @@ Mettre à jour une Issue
 
 À partir d'un objet ``Issue``, il est possible de modifier une valeur et de mettre à jour l'issue sur Redmine.
 Pour cela, la méthode ``Repository::update()`` est appelée sur l'issue à mettre à jour.
+
+
+----------------
+Le QueryBuilder
+----------------
+
+.. code-block:: php
+
+  use Blast\RedmineSDK\Query\QueryBuilder;
+
+  $qb = new QueryBuilder();
+  $qb
+    ->include('journals')
+    ->whereEq('project_id', 10)
+    ->limit(15);
+
+  $issueRepo = new IssueRepository($cxn);
+  //find one issue by its id
+  $issues = $issueRepo->findAll($qb)->hydrate();
+  //...
+
+Le ``QueryBuilder`` permet de construire la partie ``query`` de la requête http.
+Le ``QueryBuilder`` peut être passer en argument aux méthodes ``Repository::findAll()`` et ``Repository::find()``
+pour filter, trier et paramétrer le résultat de la requête.

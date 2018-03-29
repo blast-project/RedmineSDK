@@ -14,9 +14,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
-use Blast\RedmineSDK\Config\AbstractAuthConfig;
+use Blast\RedmineSDK\Connection\AbstractConnection;
 
-class TestAuthConfig extends AbstractAuthConfig
+class TestConnection extends AbstractConnection
 {
     private $mock;
 

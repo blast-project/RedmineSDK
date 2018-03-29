@@ -8,15 +8,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Blast\RedmineSDK\Config;
+namespace Blast\RedmineSDK\Connection;
 
+use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-
-interface AuthConfigInterface
+abstract class AbstractConnection implements ConnectionInterface
 {
-    public function getBaseUri(): string;
-
-    public function createHttpClient(): ClientInterface;
-
-    public function getAuthHeaders(): array;
+    public function createHttpClient(): ClientInterface
+    {
+        return new Client(['base_uri' => $this->getBaseUri()]);
+    }
 }

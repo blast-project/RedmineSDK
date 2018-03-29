@@ -25,7 +25,7 @@ abstract class RedmineTestCase extends TestCase
     public function setUp()
     {
         $this->mock = new MockHandler();
-        $this->authConfig = new TestAuthConfig($this->mock);
+        $this->authConfig = new TestConnection($this->mock);
         $this->issueId = 6226;
         $this->projectId = 11;
     }

@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Blast\RedmineSDK\Config;
+namespace Blast\RedmineSDK\Connection;
 
-class TokenAuthConfig  extends AbstractAuthConfig
+class TokenConnection  extends AbstractConnection
 {
     private $baseUri;
     private $token;

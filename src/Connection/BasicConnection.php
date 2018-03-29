@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Blast\RedmineSDK\Config;
+namespace Blast\RedmineSDK\Connection;
 
-class BasicAuthConfig extends AbstractAuthConfig
+class BasicAuthConnection extends AbstractAuthConnection
 {
     private $baseUri;
     private $login;
