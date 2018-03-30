@@ -45,8 +45,9 @@ class RedmineModel
     public function hydrate(array $data): void
     {
         $rc = new \ReflectionClass($this);
+        $converter = new StringConverter();
+
         foreach ($data as $name => $value) {
-            $converter = new StringConverter();
             $name = $converter->fromSnakeCaseToCamelCase($name);
             if (!$rc->hasProperty($name)) {
                 continue;
@@ -78,17 +79,31 @@ class RedmineModel
     public function toDTO(): array
     {
         $rc = new \ReflectionClass($this);
+        $converter = new StringConverter();
         $data = [];
 
         foreach ($rc->getProperties() as $prop) {
-            $field = $prop->getName();
+            if($prop->isPrivate()){
+              continue;
+            }
+            $field =   $prop->getName();
+            $fieldKey = $converter->fromCamelCaseToSnakeCase($field);
 
             if (is_object($this->$field)) {
-                $data[$field . '_id'] = $this->$field->get('id');
+                $data[$fieldKey . '_id'] = $this->$field->get('id');
+                continue;
+            }
+            if ($field == 'customFields') {
+                $data[$fieldKey] = [];
+                foreach($this->$field as $customField){
+                  $data[$fieldKey][] = [
+                    'id' =>  $customField->get('id'),
+                    'value' => $customField->get('value')];
+                }
                 continue;
             }
 
-            $data[$field] = $this->$field;
+            $data[$fieldKey] = $this->$field;
         }
 
         return $data;
