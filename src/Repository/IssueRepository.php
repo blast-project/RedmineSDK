@@ -15,17 +15,12 @@ use Blast\RedmineSDK\Query\QueryBuilder;
 
 class IssueRepository extends Repository
 {
+    public function findIssuesByPojectId(int $projectId)
+    {
+        $qb = new QueryBuilder();
+        $qb->whereEq('project_id', $projectId);
 
-  public function findIssuesByPojectId(int $projectId){
-    $qb = new QueryBuilder();
-    $qb->whereEq('project_id', $projectId);
-    return $this->findAll($qb);
-  }
-
-    public function findRelations(Issue $issue){
-      $uri = sprintf('%s/%s/relations.json', $this->getRoute(), $issue->get('id'));
-
-      return $this->sendGetForCollection($uri, [], $query);
+        return $this->findAll($qb);
     }
 
     public function getFormat(): string

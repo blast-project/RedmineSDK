@@ -161,4 +161,19 @@ class RedmineModel
 
         return $rc->hasProperty($property);
     }
+
+    public function __call($m, $p)
+    {
+        $v = strtolower(substr($m, 3));
+        if (!strncasecmp($m, 'get', 3)) {
+            return $this->get($v);
+        }
+        if (!strncasecmp($m, 'set', 3)) {
+            $this->set($v, $p[0]);
+
+            return;
+        }
+
+        return $this->$m;
+    }
 }
