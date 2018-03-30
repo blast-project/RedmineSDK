@@ -6,3 +6,4 @@
 src/Tests/Resources/parameters.yml
 /bin/phpunit
 *~
+/build

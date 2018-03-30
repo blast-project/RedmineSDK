@@ -17,9 +17,9 @@ use Blast\RedmineSDK\Model\RedmineModel;
 
 abstract class Repository
 {
-  /**
-   * @var ClientInterface
-   */
+    /**
+     * @var ClientInterface
+     */
     protected $client;
     protected $connection;
     protected $bodyKey;
@@ -78,6 +78,7 @@ abstract class Repository
     public function update(RedmineModel $model)
     {
         $uri = sprintf('%s/%s.%s', $this->getRoute(), $model->get('id'), $this->getFormat());
+
         return $this->sendPut($uri, [], $model->toDTO());
     }
 

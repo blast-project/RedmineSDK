@@ -61,6 +61,7 @@ abstract class Result implements Iterator, ArrayAccess, Countable
         } else {
             $data = $this->getModelClass()::fromResult($this);
         }
+
         return $data;
     }
 

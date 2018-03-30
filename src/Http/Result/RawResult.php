@@ -14,6 +14,6 @@ class RawResult extends Result
 {
     protected function extractData($data)
     {
-      return $data;
+        return $data;
     }
 }

@@ -65,7 +65,7 @@ class QueryBuilderTest extends RedmineTestCase
         $this->assertEquals($issues[0]->get('project')->get('id'), $this->projectId);
 
         $uri = $this->mock->getLastRequest()->getUri();
-        $expectedQuery = sprintf('project_id=%s&limit=%s',$this->projectId, $limit);
+        $expectedQuery = sprintf('project_id=%s&limit=%s', $this->projectId, $limit);
         $this->assertEquals($uri->getQuery(), $expectedQuery);
     }
 
@@ -83,7 +83,7 @@ class QueryBuilderTest extends RedmineTestCase
         $this->assertEquals(count($issues), $limit);
 
         $uri = $this->mock->getLastRequest()->getUri();
-        $expectedQuery = sprintf('sort=%s&limit=%s',urlencode('updated_on:desc'), $limit);
-        $this->assertEquals($uri->getQuery(),$expectedQuery);
+        $expectedQuery = sprintf('sort=%s&limit=%s', urlencode('updated_on:desc'), $limit);
+        $this->assertEquals($uri->getQuery(), $expectedQuery);
     }
 }

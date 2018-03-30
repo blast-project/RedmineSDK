@@ -12,6 +12,7 @@ namespace Blast\RedmineSDK\Connection;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+
 abstract class AbstractConnection implements ConnectionInterface
 {
     public function createHttpClient(): ClientInterface

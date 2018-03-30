@@ -45,7 +45,6 @@ class BasicConnection extends AbstractConnection
 
     public function getAuthHeaders(): array
     {
-      return ['Authorization' => $this->getBasicAuth()];
+        return ['Authorization' => $this->getBasicAuth()];
     }
-
 }

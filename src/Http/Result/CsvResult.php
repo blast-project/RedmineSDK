@@ -14,10 +14,10 @@ class CsvResult extends Result
 {
     protected function extractData($data)
     {
-      $delimiter = $this->options['delimiter'];
-      return array_map(function($line) use ($delimiter){
-        return str_getcsv($line, $delimiter);
-      }, explode("\n", $data));
+        $delimiter = $this->options['delimiter'];
 
+        return array_map(function ($line) use ($delimiter) {
+            return str_getcsv($line, $delimiter);
+        }, explode("\n", $data));
     }
 }

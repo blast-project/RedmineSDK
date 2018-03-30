@@ -10,7 +10,7 @@
 
 namespace Blast\RedmineSDK\Connection;
 
-class TokenConnection  extends AbstractConnection
+class TokenConnection extends AbstractConnection
 {
     private $baseUri;
     private $token;
