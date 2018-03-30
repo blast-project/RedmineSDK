@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2015-2018 Libre Informatique
+ * Copyright (C) 2015-2017 Libre Informatique
  *
  * This file is licenced under the GNU LGPL v3.
  * For the full copyright and license information, please view the LICENSE.md
@@ -61,6 +61,7 @@ abstract class Result implements Iterator, ArrayAccess, Countable
         } else {
             $data = $this->getModelClass()::fromResult($this);
         }
+
         return $data;
     }
 

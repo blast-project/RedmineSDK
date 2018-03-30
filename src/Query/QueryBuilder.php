@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2015-2018 Libre Informatique
+ * Copyright (C) 2015-2017 Libre Informatique
  *
  * This file is licenced under the GNU LGPL v3.
  * For the full copyright and license information, please view the LICENSE.md
@@ -29,7 +29,8 @@ class QueryBuilder
 
     /**
      * [sort description].
-     * example : $qb->sort([['my_field' => 'desc'],['my_other_field' => 'asc']])
+     * example : $qb->sort([['my_field' => 'desc'],['my_other_field' => 'asc']]).
+     *
      * @param string|array $value
      */
     public function sortBy($value): self
@@ -37,7 +38,7 @@ class QueryBuilder
         if (!is_array($value)) {
             $value = [[$value, 'asc']];
         }
-        $value = array_map(function($item){
+        $value = array_map(function ($item) {
             return sprintf('%s:%s', $item[0], $item[1]);
         }, $value);
         $this->sort = $value;
